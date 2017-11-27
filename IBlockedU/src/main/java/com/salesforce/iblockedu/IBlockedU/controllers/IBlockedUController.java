@@ -18,5 +18,10 @@ public class IBlockedUController {
     public String sayHello(@RequestParam String helloTo) {
         return "hello " + helloTo;
     }
+
+    @RequestMapping(value = "/whoBlocks", method = RequestMethod.GET)
+    public String sayHello(@RequestParam String emailAddress) {
+        return "Mock Car is blocking" + emailAddress;
+    }
 }
 
