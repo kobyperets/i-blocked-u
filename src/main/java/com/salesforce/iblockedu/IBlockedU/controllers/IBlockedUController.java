@@ -20,8 +20,18 @@ public class IBlockedUController {
     }
 
     @RequestMapping(value = "/whoBlocks", method = RequestMethod.GET)
-    public String whosBlocking(@RequestParam String emailAddress) {
-        return "Mock Car is blocking" + emailAddress;
+    public String whosBlocking(@RequestParam String email) {
+        return "Mock Car is blocking " + email;
+    }
+
+    @RequestMapping(value = "/goingHome", method = RequestMethod.GET)
+    public String goingHome(@RequestParam String email) {
+        return email + " Is going home. Mock Car is now unblocked";
+    }
+
+    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+    public String signIn(@RequestParam String email) {
+        return email + " is now signed-in";
     }
 }
 
