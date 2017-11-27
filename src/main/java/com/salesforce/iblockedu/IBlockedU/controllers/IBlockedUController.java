@@ -20,7 +20,7 @@ public class IBlockedUController {
     }
 
     @RequestMapping(value = "/whoBlocks", method = RequestMethod.GET)
-    public String sayHello(@RequestParam String emailAddress) {
+    public String whosBlocking(@RequestParam String emailAddress) {
         return "Mock Car is blocking" + emailAddress;
     }
 }
