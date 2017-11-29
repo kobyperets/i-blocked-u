@@ -1,0 +1,31 @@
+<div class="panel-body">
+    <div class="panel-default" style="margin: 20px; width: 400px">
+        <table st-table="usersTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Phone</th>
+            </tr>
+            </thead>
+
+            <tbody ng-repeat="user in userRecords">
+                <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.phone}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-app="postcar" ng-controller="postcarCtrl">
+        <div>
+            Name : <input ng-model="name" /><br/><br/>
+            Phone : <input ng-model="phone" /><br/><br/>
+            Car plate number : <input ng-model="cpn" /><br/><br/>
+            <input type="button" value="Send" ng-click="postdata(name, age, cpn)" /> <br/><br/>
+        </div>
+    </div>
+</div>

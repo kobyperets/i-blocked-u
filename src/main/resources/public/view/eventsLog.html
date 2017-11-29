@@ -1,0 +1,25 @@
+<div class="panel-body">
+    <div class="panel-default" style="margin: 20px;">
+
+    <table st-table="eventsLog" class="table table-striped">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Date\Time</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in eventsLog">
+            <td>
+                <button type="button" ng-show="{{row.issue}}" class="btn btn-sm btn-danger"/>
+                <button type="button" ng-show="!{{row.issue}}" class="btn btn-sm btn-info"/>
+            </td>
+            <td>{{row.timeStr}}</td>
+            <td>{{row.description}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    </div>
+</div>

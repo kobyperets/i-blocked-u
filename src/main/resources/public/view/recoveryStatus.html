@@ -1,0 +1,96 @@
+<div class="panel-body">
+    <!--div class="panel-default" style="margin: 20px"-->
+
+
+    <!-- Intro Section -->
+    <section id="intro" class="intro-section">
+
+        <div class="container">
+                <h1>Recovery Progress</h1>
+                <div class="panel panel-primary">
+
+                    <div class="panel-body text-left" style="display: flex; flex-direction: row">
+
+                        <div style="padding-left: 4rem;  display: flex;  justify-content: center; flex-direction: column;">
+                            <article>
+                                <label>Logically Active:</label>{{logicallyActive}}
+                                <br>
+                                <label>Actually Active:</label>{{actuallyActive}}
+                                <br>
+                                <label>Recovery start time:</label>{{startTime}}
+                                <br>
+                                <label>Last full successful test:</label>{{lastSuccessfulTest}}
+                                <br>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <div class="item" ng-repeat="item in servicesNames" >
+
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">Service {{item}}</h3>
+                </div>
+
+                <div class="panel-body text-left" style="display: flex; flex-direction: row">
+                    <br>
+                    <ui-knob value="progressValues[item]" options="progressOptions[item]"></ui-knob>
+                    <div style="padding-left: 4rem;  display: flex;  justify-content: center; flex-direction: column;">
+                        <article>
+                            <label>Handling host:</label> {{hosts[item]}}
+                            <br>
+                            <label>Recovering data from time:</label>{{serviceFromTime[item]}}
+                            <br>
+                            <label>Recovery status:</label> {{recoveryStatus[item]}}
+                            <br>
+                            <label>Iteration range:</label> {{iterationTarget[item]}}
+                            <br>
+                            <label>Recovering day:</label> {{recoveringDay[item]}}
+                            <br>
+                            <label>Recovering hour:</label> {{recoveringHour[item]}}
+                            <br>
+                            <label>Estimated Time Left to Sync:</label> {{estimatedSyncDoneTime[item]}}
+                            <br>
+                            <label>Last updated:</label> {{lastUpdateTime[item]}}
+                        </article>
+                    </div>
+                    <div style="padding-left: 4rem;  display: flex;  justify-content: right; flex-direction: column;">
+                        <article>
+                            <label>Services Family:</label>{{servicesFamily[item]}}
+                            <br>
+                            <label>Method Replay Success:</label>{{methodsSuccess[item]}}
+                            <br>
+                            <label>Method Replay Failure:</label>{{methodsFailure[item]}}
+                            <br>
+                            <label>Downloaded S3 files:</label>{{downloadedFiles[item]}}
+                            <br>
+                            <label>Free Memory:</label>{{freeMem[item]}}
+                        </article>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger"  ng-show="secondsToEnd[item]">
+                    <strong>System was set to Active! performing last recovery round</strong>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <label>
+            <input type="radio" ng-model="progressSource" value="mock">
+            Use Mock Data
+        </label><br/>
+        <label>
+            <input type="radio" ng-model="progressSource" value="real">
+            Use Real Data
+        </label><br/>
+    </div>
+</div>
