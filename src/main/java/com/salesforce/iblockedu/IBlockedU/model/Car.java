@@ -14,6 +14,18 @@ public class Car extends BaseEntity{
         this.licensePlate = licensePlate;
     }
 
+    public Car() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getColor() {
         return color;
     }
