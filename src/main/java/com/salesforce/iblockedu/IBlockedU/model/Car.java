@@ -5,6 +5,7 @@ public class Car extends BaseEntity{
     private String model;
     private int ownerId;
     private String licensePlate;
+    private static Car empty = new Car(-1,null,null,-1,null);
 
     public Car(int id, String color, String model, int ownerId, String licensePlate) {
         this.id = id;
@@ -58,4 +59,8 @@ public class Car extends BaseEntity{
         this.licensePlate = licensePlate;
     }
 
+
+    public static Car getEmpty() {
+        return empty;
+    }
 }

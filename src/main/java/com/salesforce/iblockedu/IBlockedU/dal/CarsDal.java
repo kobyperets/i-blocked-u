@@ -32,12 +32,12 @@ public class CarsDal extends BaseDal<Car> {
     public Car getCarByLicensePlate(String licensePlate) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM CARS WHERE LICENSE_PLATE = %s",licensePlate));
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM CARS WHERE LICENSE_PLATE = '%s'",licensePlate));
 
             if(rs.next()) {
                 return getCarFromRecord(rs);
             } else
-                return new Car(-1,null,null,-1,null);
+                return Car.getEmpty();
 
         } catch (Exception e) {
             ///log

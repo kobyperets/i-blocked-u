@@ -1,12 +1,16 @@
 package com.salesforce.iblockedu.IBlockedU.controllers;
 
 import com.salesforce.iblockedu.IBlockedU.dal.UtilsDal;
+import com.salesforce.iblockedu.IBlockedU.logic.BlocksLogic;
 import com.salesforce.iblockedu.IBlockedU.logic.UsersLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.Date;
+import java.time.Instant;
 
 /**
  * Created by doron.levi on 27/11/2017.
@@ -22,10 +26,13 @@ public class IBlockedUController {
     @Autowired
     private UtilsDal utilsDal;
 
+    @Autowired
+    private BlocksLogic blocksLogic;
+
     @RequestMapping(value = "/iAmBlocking", method = RequestMethod.GET)
     public String iAmBlocking(@RequestParam String email, @RequestParam String licensePlate) {
 
-        return email + " is Blocking car with license plate " + licensePlate;
+        return blocksLogic.block(email,licensePlate,new Date(Instant.now().toEpochMilli()));
     }
 
     @RequestMapping(value = "/whoBlocks", method = RequestMethod.GET)
