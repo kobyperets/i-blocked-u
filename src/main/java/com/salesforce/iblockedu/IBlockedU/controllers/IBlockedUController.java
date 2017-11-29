@@ -44,10 +44,10 @@ public class IBlockedUController {
 
         String userName = usersLogic.getUserName(email);
 
-        if (userName != null && userName == "")
-            return userName;
-        else
+        if (userName == null && userName == "")
             return "Guest";
+        else
+            return userName;
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
