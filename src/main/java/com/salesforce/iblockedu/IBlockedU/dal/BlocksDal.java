@@ -26,18 +26,46 @@ public class BlocksDal extends BaseDal<Block> {
     }
 
     public void removeBlock(User user) {
-
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            Block block = checkIfBlocker(user, stmt);
+            if (block != null) {
+                stmt.executeUpdate(String.format("UPDATE BLOCKS SET IS_ACTIVE = FALSE WHERE ID = %d", block.getId()));
+                //Todo- mmatalon: Send sms
+            }
+        } catch (Exception e) {
+            throw new IBlockedUException(e);
+        }
     }
 
     public void updateExitHour(User user, Date date) {
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            Block block = checkIfBlocker(user, stmt);
+            if (block != null) {
+                stmt.executeUpdate(String.format("UPDATE BLOCKS SET BLOCKER_EXIT = '%s' WHERE ID = %d", date, block.getId()));
+            }
 
+        } catch (Exception e) {
+            ///log
+            throw new IBlockedUException(e);
+        }
     }
 
-    public List<Block> getAllBlocks() {
+    private Block checkIfBlocker(User user, Statement stmt) throws SQLException {
+        ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM BLOCKS WHERE BLOCKER_ID = %d", user.getId()));
+        Block block = null;
+        while (rs.next()) {
+            block = getBlockFromRecord(rs);
+        }
+        return block;
+    }
+
+    public List<Block> getAllActiveBlocks() {
         List<Block> blocks = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM BLOCKS");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM BLOCKS WHERE IS_ACTIVE = TRUE");
             Block block;
             while (rs.next()) {
                 block = getBlockFromRecord(rs);
