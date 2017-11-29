@@ -1,5 +1,7 @@
 package com.salesforce.iblockedu.IBlockedU.controllers;
 
+import com.salesforce.iblockedu.IBlockedU.dal.UsersDal;
+import com.salesforce.iblockedu.IBlockedU.model.User;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,15 @@ public class IBlockedUController {
 
     @RequestMapping(value = "/signin", method = RequestMethod.GET)
     public String signIn(@RequestParam String email) {
-        return email + " is now signed-in";
+
+        UsersDal usersDal = new UsersDal(dataSource);
+
+        User user = usersDal.getUserByEmail(email);
+
+        if (user.isActive())
+            return user.getName();
+        else
+            return "Guest";
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
