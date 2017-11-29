@@ -1,0 +1,8 @@
+.companyDiv:hover{
+    background-color:#E5FFFF ;
+    cursor: pointer;
+}
+
+.checkbox-items {
+    display: grid;
+}

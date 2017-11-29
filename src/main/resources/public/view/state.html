@@ -1,0 +1,36 @@
+<div class="panel-body">
+    <div class="panel-default" style="width: 600px;margin: 20px">
+
+        <div class="alert alert-success" ng-show="genActive && stateValid">
+            General Services are in state: <strong>Active</strong>
+        </div>
+        <div class="alert alert-danger" ng-show="!genActive && stateValid">
+            General Services are in state: <strong>StandBy</strong>
+        </div>
+        <div class="alert alert-info"  ng-show="!stateValid">
+            Fetching environment state...
+        </div>
+        <div style="clear: both">&nbsp;</div>
+        <button type="button" class="btn btn-success" ng-click="setActive('General')" ng-show="!genActive && stateValid">Switch to Active&nbsp;<span class="glyphicon glyphicon-play"></span></button>
+        <button type="button" class="btn btn-danger" ng-click="setStandBy('General')" ng-show="genActive && stateValid">Switch to StandBy&nbsp;<span class="glyphicon glyphicon-stop"></span></button>
+    </div>
+
+    <div class="panel-default" style="width: 600px;margin: 20px">
+
+        <div class="alert alert-success" ng-show="feedbackActive && stateValid">
+            Feedback Services are in state: <strong>Active</strong>
+        </div>
+        <div class="alert alert-danger" ng-show="!feedbackActive && stateValid">
+            Feedback Services are in state: <strong>StandBy</strong>
+        </div>
+        <div class="alert alert-info"  ng-show="!stateValid">
+            Fetching environment state...
+        </div>
+        <div style="clear: both">&nbsp;</div>
+        <button type="button" class="btn btn-success" ng-click="setActive('Feedback')" ng-show="!feedbackActive && stateValid">Switch to Active&nbsp;<span class="glyphicon glyphicon-play"></span></button>
+        <button type="button" class="btn btn-danger" ng-click="setStandBy('Feedback')" ng-show="feedbackActive && stateValid">Switch to StandBy&nbsp;<span class="glyphicon glyphicon-stop"></span></button>
+    </div>
+
+
+
+</div>

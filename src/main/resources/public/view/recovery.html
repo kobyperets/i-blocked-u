@@ -1,0 +1,82 @@
+<div class="panel-body">
+    <div class="panel-default" style="margin: 20px; width: 400px">
+        <form class="form-horizontal">
+
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Recovery Mode</label>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-model="recoveryMode" title="Target..." style="margin-right: 10px">
+                        <option>New</option>
+                        <option>Incremental</option>
+                        <option>Overwrite</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Source Env</label>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-model="sourceEnv" style="margin-right: 10px">
+                        <option>staging</option>
+                        <option>preprod</option>
+                        <option>prod</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">From Time</label>
+                <div class="col-sm-8">
+                    <!--<input type="text" class="form-control" placeholder="time in epoc format" ng-model="fromTime">-->
+                    <input type="text" value="05-05-2017" id="datepicker" name="date">
+                    <input type="text" value="12:00" id="timepicker" name="time">
+                </div>
+            </div>
+
+            <label class="col-sm-4 control-label">Services List</label>
+            <div ng-repeat="service in services track by $index">
+                <div class="form-group">
+                    <div style="padding-left: 160px;padding-top: 7px;">
+                        <div class="checkbox-items">
+                            <label>
+                                <input type="checkbox" ng-model="servicesModel[service]"> {{service}}
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" style="padding-left: 13px;">Service from time override</label>
+                            <div class="col-sm-8">
+                                <input type="text" value="" id="{{'datepicker' + $index}}" name="date">
+                                <input type="text" value="" id="{{'timepicker' + $index}}" name="time">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button type="button" class="btn btn-success" ng-show="true" ng-click="startRecovery()" >Start Recovery</button>
+                </div>
+                <div style="clear: both">&nbsp;</div>
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button type="button" class="btn btn-danger" ng-show="actuallyActive" ng-click="stopRecovery()">Stop Recovery</button>
+                </div>
+                <div style="clear: both">&nbsp;</div>
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button type="button" class="btn btn-danger" ng-show="actuallyActive" ng-click="stopRecoveryNow()">Stop Recovery Now</button>
+                </div>
+                <div style="clear: both">&nbsp;</div>
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button type="button" class="btn btn-warning" ng-show="logicallyActive" ng-click="resetConfig()">Reset Configuration</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="alert alert-danger" ng-show="errorMessage">
+                    Failure Error: {{errorMessage}}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
