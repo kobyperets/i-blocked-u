@@ -9,6 +9,7 @@ public class User extends BaseEntity{
     private String phoneNumber;
     private String imageLocation;
     private boolean active;
+    private static User empty = new User(-1,null,null,null,null,false);
 
     public User(int id, String email, String name, String phoneNumber, String imageLocation, boolean active) {
         this.id = id;
@@ -17,6 +18,9 @@ public class User extends BaseEntity{
         this.phoneNumber = phoneNumber;
         this.imageLocation = imageLocation;
         this.active = active;
+    }
+
+    public User() {
     }
 
     public int getId() {
@@ -65,5 +69,9 @@ public class User extends BaseEntity{
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public static User getEmpty() {
+        return empty;
     }
 }
