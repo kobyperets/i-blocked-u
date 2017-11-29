@@ -49,6 +49,12 @@ public class IBlockedUController {
         return email + " is now signed-in";
     }
 
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String users() {
+
+        return "all users";
+    }
+
     @RequestMapping("/dbinit")
     String dbinit() {
         try (Connection connection = dataSource.getConnection()) {
