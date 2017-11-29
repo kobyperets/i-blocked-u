@@ -2,9 +2,11 @@ package com.salesforce.iblockedu.IBlockedU.dal;
 
 import com.salesforce.iblockedu.IBlockedU.exceptions.IBlockedUException;
 import com.salesforce.iblockedu.IBlockedU.model.Block;
+import com.salesforce.iblockedu.IBlockedU.model.User;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.Statement;
 
 public class BlocksDal extends BaseDal<Block> {
@@ -22,5 +24,13 @@ public class BlocksDal extends BaseDal<Block> {
             ///log
             throw new IBlockedUException();
         }
+    }
+
+    public void removeBlock(User user) {
+
+    }
+
+    public void updateExitHour(User user, Date date) {
+
     }
 }
