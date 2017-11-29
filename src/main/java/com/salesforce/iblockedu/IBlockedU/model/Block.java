@@ -1,6 +1,6 @@
 package com.salesforce.iblockedu.IBlockedU.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Block extends BaseEntity {
     private int blockerId;
