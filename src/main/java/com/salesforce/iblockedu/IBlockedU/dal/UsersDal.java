@@ -75,7 +75,7 @@ public class UsersDal extends BaseDal<User> {
         return allUsers;
     }
 
-    private User getUserFromRecord(ResultSet rs) throws SQLException {
+    public static User getUserFromRecord(ResultSet rs) throws SQLException {
         User user;
         user = new User();
         user.setId(rs.getInt("ID"));
