@@ -52,7 +52,7 @@ public class IBlockedUController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String users() {
 
-        return "all users";
+        return "{\"users\":[{\"id\":\"1\", \"name\":\"dor\", \"phone\":\"1234\"}]}";
     }
 
     @RequestMapping("/dbinit")
