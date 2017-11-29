@@ -7,6 +7,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by doron.levi on 29/11/2017.
@@ -39,6 +41,7 @@ public class UsersDal extends BaseDal<User> {
             user = new User();
 
             while (rs.next()) {
+                user.setId(rs.getInt("ID"));
                 user.setActive(rs.getBoolean("ACTIVE"));
                 user.setEmail(rs.getString("EMAIL"));
                 user.setName(rs.getString("NAME"));
@@ -52,5 +55,33 @@ public class UsersDal extends BaseDal<User> {
         return user;
     }
 
+    public List<User> getAllUsers() {
+
+        List<User> allUsers = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM USERS");
+
+            User user;
+
+            while (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("ID"));
+                user.setActive(rs.getBoolean("ACTIVE"));
+                user.setEmail(rs.getString("EMAIL"));
+                user.setName(rs.getString("NAME"));
+                user.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+
+                allUsers.add(user);
+            }
+
+        } catch (Exception e) {
+            throw new IBlockedUException(e);
+        }
+
+        return allUsers;
+    }
 
 }
