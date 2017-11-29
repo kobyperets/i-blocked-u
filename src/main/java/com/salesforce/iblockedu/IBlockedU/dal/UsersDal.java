@@ -6,6 +6,7 @@ import com.salesforce.iblockedu.IBlockedU.model.User;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,21 +32,15 @@ public class UsersDal extends BaseDal<User> {
 
     public User getUserByEmail(String email) {
 
-        User user;
+        User user = User.getEmpty();
 
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
 
             ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM USERS WHERE lower(EMAIL) = lower('%s')", email));
 
-            user = new User();
-
             while (rs.next()) {
-                user.setId(rs.getInt("ID"));
-                user.setActive(rs.getBoolean("ACTIVE"));
-                user.setEmail(rs.getString("EMAIL"));
-                user.setName(rs.getString("NAME"));
-                user.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+                user = getUserFromRecord(rs);
             }
 
         } catch (Exception e) {
@@ -67,12 +62,8 @@ public class UsersDal extends BaseDal<User> {
             User user;
 
             while (rs.next()) {
-                user = new User();
-                user.setId(rs.getInt("ID"));
-                user.setActive(rs.getBoolean("ACTIVE"));
-                user.setEmail(rs.getString("EMAIL"));
-                user.setName(rs.getString("NAME"));
-                user.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+
+                user = getUserFromRecord(rs);
 
                 allUsers.add(user);
             }
@@ -84,4 +75,14 @@ public class UsersDal extends BaseDal<User> {
         return allUsers;
     }
 
+    private User getUserFromRecord(ResultSet rs) throws SQLException {
+        User user;
+        user = new User();
+        user.setId(rs.getInt("ID"));
+        user.setActive(rs.getBoolean("ACTIVE"));
+        user.setEmail(rs.getString("EMAIL"));
+        user.setName(rs.getString("NAME"));
+        user.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+        return user;
+    }
 }
