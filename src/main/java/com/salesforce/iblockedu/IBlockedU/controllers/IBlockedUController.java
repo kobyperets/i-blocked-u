@@ -24,6 +24,7 @@ public class IBlockedUController {
 
     @RequestMapping(value = "/iAmBlocking", method = RequestMethod.GET)
     public String iAmBlocking(@RequestParam String email, @RequestParam String licensePlate) {
+
         return email + " is Blocking car with license plate " + licensePlate;
     }
 
@@ -43,7 +44,7 @@ public class IBlockedUController {
 
         String userName = usersLogic.getUserName(email);
 
-        if (userName == null || userName == "")
+        if (userName != null && userName == "")
             return userName;
         else
             return "Guest";

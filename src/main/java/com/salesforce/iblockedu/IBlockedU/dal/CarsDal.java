@@ -25,8 +25,25 @@ public class CarsDal extends BaseDal<Car> {
 
         } catch (Exception e) {
             ///log
-            throw new IBlockedUException();
+            throw new IBlockedUException(e);
         }
+    }
+
+    public Car getCarByLicensePlate(String licensePlate) {
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM CARS WHERE LICENSE_PLATE = %s",licensePlate));
+
+            if(rs.next()) {
+                return getCarFromRecord(rs);
+            } else
+                return new Car(-1,null,null,-1,null);
+
+        } catch (Exception e) {
+            ///log
+            throw new IBlockedUException(e);
+        }
+
     }
 
     public User getUserByCarId(Car car) {

@@ -1,6 +1,7 @@
 package com.salesforce.iblockedu.IBlockedU.configuration;
 
 import com.salesforce.iblockedu.IBlockedU.dal.BlocksDal;
+import com.salesforce.iblockedu.IBlockedU.dal.CarsDal;
 import com.salesforce.iblockedu.IBlockedU.dal.UsersDal;
 import com.salesforce.iblockedu.IBlockedU.dal.UtilsDal;
 import com.salesforce.iblockedu.IBlockedU.logic.BlocksLogic;
@@ -22,6 +23,8 @@ public class IBlockedUConfiguration {
 
     @Value("${spring.datasource.url}")
     private String dbUrl;
+
+
 
     @Bean
     public DataSource dataSource() throws SQLException {
@@ -45,6 +48,11 @@ public class IBlockedUConfiguration {
     }
 
     @Bean
+    public CarsDal carsDal(DataSource dataSource) {
+        return new CarsDal(dataSource);
+    }
+
+    @Bean
     public BlocksDal blocksDal(DataSource dataSource) {
         return new BlocksDal(dataSource);
     }
@@ -55,8 +63,10 @@ public class IBlockedUConfiguration {
     }
 
     @Bean
-    public BlocksLogic blocksLogic(BlocksDal blocksDal, UsersDal usersDal) {
-        return new BlocksLogic(usersDal,blocksDal);
+    public BlocksLogic blocksLogic(BlocksDal blocksDal, UsersDal usersDal, CarsDal carsDal) {
+        return new BlocksLogic(usersDal,blocksDal, carsDal);
     }
+
+
 
 }
