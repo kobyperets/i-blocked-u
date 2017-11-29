@@ -5,4 +5,8 @@ package com.salesforce.iblockedu.IBlockedU.model;
  */
 public class BaseEntity {
     protected int id;
+
+    public int getId() {
+        return id;
+    }
 }
