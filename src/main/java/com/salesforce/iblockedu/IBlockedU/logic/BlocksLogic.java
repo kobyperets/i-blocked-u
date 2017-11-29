@@ -40,17 +40,21 @@ public class BlocksLogic {
 
             Car car = carsDal.getCarByLicensePlate(licensePlate);
 
-            Block block = new Block();
-            block.setBlockerId(user.getId());
-            block.setBlockingDate(new Date(Instant.now().toEpochMilli()));
-            block.setBlockerExitTime(exitTime);
-            block.setBlockedCarId(car.getId());
-            block.setActive(true);
-            block.setBlockedId(car.getOwnerId());
+            if (car.getId() != -1) {
 
-            blocksDal.addBlock(block);
+                Block block = new Block();
+                block.setBlockerId(user.getId());
+                block.setBlockingDate(new Date(Instant.now().toEpochMilli()));
+                block.setBlockerExitTime(exitTime);
+                block.setBlockedCarId(car.getId());
+                block.setActive(true);
+                block.setBlockedId(car.getOwnerId());
+
+                blocksDal.addBlock(block);
+            } else
+                error = "Error: No Car found for license plate: " + licensePlate;
         } else {
-            error = "No user for " + email;
+            error = "Error: No user found for " + email;
         }
 
         return error;

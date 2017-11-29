@@ -37,7 +37,7 @@ public class CarsDal extends BaseDal<Car> {
             if(rs.next()) {
                 return getCarFromRecord(rs);
             } else
-                return new Car(-1,null,null,-1,null);
+                return Car.getEmpty();
 
         } catch (Exception e) {
             ///log
