@@ -31,9 +31,9 @@ public class IBlockedUController {
     @Autowired
     private DataSource dataSource;
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public String sayHello(@RequestParam String helloTo) {
-        return "hello " + helloTo;
+    @RequestMapping(value = "/iAmBlocking", method = RequestMethod.GET)
+    public String iAmBlocking(@RequestParam String email, @RequestParam String licensePlate) {
+        return email + " is Blocking car with license plate " + licensePlate;
     }
 
     @RequestMapping(value = "/whoBlocks", method = RequestMethod.GET)
