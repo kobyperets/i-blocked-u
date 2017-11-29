@@ -32,8 +32,7 @@ public class IBlockedUController {
     @RequestMapping(value = "/iAmBlocking", method = RequestMethod.GET)
     public String iAmBlocking(@RequestParam String email, @RequestParam String licensePlate) {
 
-        blocksLogic.block(email,licensePlate,new Date(Instant.now().toEpochMilli()));
-        return email + " is Blocking car with license plate " + licensePlate;
+        return blocksLogic.block(email,licensePlate,new Date(Instant.now().toEpochMilli()));
     }
 
     @RequestMapping(value = "/whoBlocks", method = RequestMethod.GET)
