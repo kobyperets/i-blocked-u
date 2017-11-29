@@ -1,25 +1,14 @@
 var app = angular.module('migManagerApp', ["ngRoute","ui.knob"])
     .config(function ($routeProvider, $locationProvider, $httpProvider) {
-
-        $routeProvider.when('/state',
-            {
-                templateUrl: 'view/state.html',
-                controller: 'migManagerAppCtrl'
-            });
         $routeProvider.when('/users',
             {
                 templateUrl: 'view/users.html',
                 controller: 'UsersCtrl'
             });
-        $routeProvider.when('/recoveryStatus',
+        $routeProvider.when('/cars',
             {
-                templateUrl: 'view/recoveryStatus.html',
-                controller: 'RecoveryStatusCtrl'
-            });
-        $routeProvider.when('/eventsLog',
-            {
-                templateUrl: 'view/eventsLog.html',
-                controller: 'EventsLogCtrl'
+                templateUrl: 'view/cars.html',
+                controller: 'CarsCtrl'
             });
         $routeProvider.otherwise(
             {
@@ -166,6 +155,28 @@ app.controller('UsersCtrl', function($scope, $http, $interval) {
         });
     }
     $scope.task = $interval($scope.getUsers,5000);
+
+});
+
+
+app.controller('CarsCtrl', function($scope, $http, $interval) {
+    console.log('inside CarsCtrl controller');
+
+
+    $scope.carsRecords = [];
+
+    $scope.getCars = function () {
+
+        $http({
+            method: 'GET',
+            url: "/iblockedu/api/cars",
+            headers: {"Content-Type": "application/json"}
+        }).then(function (response) {
+
+            $scope.userRecords = response.data.cars;
+        });
+    }
+    $scope.task = $interval($scope.getCars,5000);
 
 });
 

@@ -1,0 +1,24 @@
+<div class="panel-body">
+    <div class="panel-default" style="margin: 20px; width: 400px">
+        <table st-table="usersTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Color</th>
+                <th>Model</th>
+                <th>OwnerId</th>
+                <th>License plate number</th>
+            </tr>
+            </thead>
+
+            <tbody ng-repeat="car in carsRecords">
+                <tr>
+                <td>{{car.color}}</td>
+                <td>{{car.model}}</td>
+                <td>{{car.ownerid}}</td>
+                <td>{{car.licensePlate}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
