@@ -10,6 +10,11 @@ var app = angular.module('migManagerApp', ["ngRoute","ui.knob"])
                 templateUrl: 'view/cars.html',
                 controller: 'CarsCtrl'
             });
+        $routeProvider.when('/blocks',
+            {
+                templateUrl: 'view/blocks.html',
+                controller: 'BlocksCtrl'
+            });
         $routeProvider.otherwise(
             {
                 redirectTo: 'view/state.html',
@@ -180,6 +185,27 @@ app.controller('CarsCtrl', function($scope, $http, $interval) {
 
 });
 
+
+app.controller('BlocksCtrl', function($scope, $http, $interval) {
+    console.log('inside BlocksCtrl controller');
+
+
+    $scope.carsRecords = [];
+
+    $scope.getBlocks = function () {
+
+        $http({
+            method: 'GET',
+            url: "/iblockedu/api/blocks",
+            headers: {"Content-Type": "application/json"}
+        }).then(function (response) {
+
+            $scope.userRecords = response.data.blocks;
+        });
+    }
+    $scope.task = $interval($scope.getBlocks,5000);
+
+});
 
 app.controller('postcarCtrl', function ($scope, $http) {
     $scope.name = null;
