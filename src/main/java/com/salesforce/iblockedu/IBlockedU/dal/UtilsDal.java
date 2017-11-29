@@ -22,9 +22,9 @@ public class UtilsDal {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
 
-            stmt.executeUpdate("DROP TABLE BLOCKS");
-            stmt.executeUpdate("DROP TABLE CARS");
-            stmt.executeUpdate("DROP TABLE USERS");
+            stmt.executeUpdate("DROP TABLE IF EXISTS BLOCKS");
+            stmt.executeUpdate("DROP TABLE IF EXISTS CARS");
+            stmt.executeUpdate("DROP TABLE IF EXISTS USERS");
 
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS USERS (ID serial primary key, EMAIL text not null unique, NAME text not null, PHONE_NUMBER text not null, IMAGE_LOCATION text, ACTIVE boolean)");
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS CARS (ID serial primary key, COLOR text, MODEL text, OWNER_ID integer not null REFERENCES USERS (ID), LICENSE_PLATE text not null UNIQUE)");

@@ -8,7 +8,7 @@ import com.salesforce.iblockedu.IBlockedU.model.Car;
 import com.salesforce.iblockedu.IBlockedU.model.User;
 
 import java.sql.Date;
-import java.util.Locale;
+import java.time.Instant;
 
 /**
  * Created by doron.levi on 29/11/2017.
@@ -42,7 +42,7 @@ public class BlocksLogic {
 
             Block block = new Block();
             block.setBlockerId(user.getId());
-            //block.setBlockingDate();
+            block.setBlockingDate(new Date(Instant.now().toEpochMilli()));
             block.setBlockerExitTime(exitTime);
             block.setBlockedCarId(car.getId());
             block.setActive(true);
