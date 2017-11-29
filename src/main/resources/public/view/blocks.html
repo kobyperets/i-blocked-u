@@ -1,0 +1,26 @@
+<div class="panel-body">
+    <div class="panel-default" style="margin: 20px; width: 400px">
+        <table st-table="usersTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Blocker Id</th>
+                <th>Blocked Id</th>
+                <th>Blocking date</th>
+                <th>Blocker exit hour</th>
+                <th>Blocked exit hour</th>
+            </tr>
+            </thead>
+
+            <tbody ng-repeat="block in blockRecords">
+                <tr>
+                <td>{{block.blockerid}}</td>
+                <td>{{block.blockedid}}</td>
+                <td>{{block.blockingdate}}</td>
+                <td>{{block.blockerexithour}}</td>
+                <td>{{block.blockedexithour}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
