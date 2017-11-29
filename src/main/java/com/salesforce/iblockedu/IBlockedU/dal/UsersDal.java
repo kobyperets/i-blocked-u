@@ -50,14 +50,21 @@ public class UsersDal extends BaseDal<User> {
         return user;
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers(boolean active) {
 
         List<User> allUsers = new ArrayList<>();
 
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM USERS");
+            String query;
+
+            if (active)
+                query = "SELECT * FROM USERS WHERE ACTIVE=True";
+            else
+                query = "SELECT * FROM USERS";
+
+            ResultSet rs = stmt.executeQuery(query);
 
             User user;
 

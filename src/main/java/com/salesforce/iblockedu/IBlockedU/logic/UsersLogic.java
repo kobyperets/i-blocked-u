@@ -16,7 +16,13 @@ public class UsersLogic {
         this.usersDal = usersDal;
     }
 
-    public List<User> getAllUsers() {
-         return usersDal.getAllUsers();
+    public List<User> getAllUsers(boolean active) {
+         return usersDal.getAllUsers(active);
+    }
+
+    public String getUserName(String email) {
+        User user = usersDal.getUserByEmail(email);
+
+        return user.getName();
     }
 }

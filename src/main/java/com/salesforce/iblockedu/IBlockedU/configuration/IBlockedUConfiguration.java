@@ -1,6 +1,9 @@
 package com.salesforce.iblockedu.IBlockedU.configuration;
 
+import com.salesforce.iblockedu.IBlockedU.dal.BlocksDal;
 import com.salesforce.iblockedu.IBlockedU.dal.UsersDal;
+import com.salesforce.iblockedu.IBlockedU.dal.UtilsDal;
+import com.salesforce.iblockedu.IBlockedU.logic.BlocksLogic;
 import com.salesforce.iblockedu.IBlockedU.logic.UsersLogic;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -37,8 +40,23 @@ public class IBlockedUConfiguration {
     }
 
     @Bean
+    public UtilsDal utilsDal(DataSource dataSource) {
+        return new UtilsDal(dataSource);
+    }
+
+    @Bean
+    public BlocksDal blocksDal(DataSource dataSource) {
+        return new BlocksDal(dataSource);
+    }
+
+    @Bean
     public UsersLogic usersLogic(UsersDal usersDal) {
         return new UsersLogic(usersDal);
+    }
+
+    @Bean
+    public BlocksLogic blocksLogic(BlocksDal blocksDal, UsersDal usersDal) {
+        return new BlocksLogic(usersDal,blocksDal);
     }
 
 }

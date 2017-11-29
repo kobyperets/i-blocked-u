@@ -11,8 +11,13 @@ import java.sql.Date;
  * Created by doron.levi on 29/11/2017.
  */
 public class BlocksLogic {
-    UsersDal usersDal;
-    BlocksDal blocksDal;
+    private UsersDal usersDal;
+    private BlocksDal blocksDal;
+
+    public BlocksLogic(UsersDal usersDal, BlocksDal blocksDal) {
+        this.usersDal = usersDal;
+        this.blocksDal = blocksDal;
+    }
 
     public void unBlock(String email) {
         User user = usersDal.getUserByEmail(email);
@@ -27,4 +32,6 @@ public class BlocksLogic {
     public void updateExitHour(User user, Date date) {
         blocksDal.updateExitHour(user,date);
     }
+
+
 }
