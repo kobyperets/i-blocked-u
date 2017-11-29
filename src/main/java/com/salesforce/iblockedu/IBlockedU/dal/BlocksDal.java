@@ -17,12 +17,11 @@ public class BlocksDal extends BaseDal<Block> {
     public void addBlock(Block block) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate(String.format("INSERT INTO BLOCKS (BLOCKER_ID, BLOCKED_CAR_ID, BLOCKED_ID, BLOCKING_DATE, BLOCKER_EXIT, IS_ACTIVE) " +
-                    "VALUES (%d,%d,%d,%s,%s,%s)", block.getBlockerId(), block.getBlockedCarId(), block.getBlockedId(), block.getBlockingDate(), block.getBlockerExitTime(), block.isActive()));
+            stmt.executeUpdate(String.format("INSERT INTO BLOCKS (BLOCKER_ID, BLOCKED_CAR_ID, BLOCKED_ID, BLOCKING_DATE, BLOCKER_EXIT, IS_ACTIVE) VALUES (%d,%d,%d,'%s','%s',%s)", block.getBlockerId(), block.getBlockedCarId(), block.getBlockedId(), block.getBlockingDate(), block.getBlockerExitTime(), block.isActive()));
 
         } catch (Exception e) {
             ///log
-            throw new IBlockedUException();
+            throw new IBlockedUException(e);
         }
     }
 
@@ -47,7 +46,7 @@ public class BlocksDal extends BaseDal<Block> {
 
         } catch (Exception e) {
             ///log
-            throw new IBlockedUException();
+            throw new IBlockedUException(e);
         }
 
         return blocks;
