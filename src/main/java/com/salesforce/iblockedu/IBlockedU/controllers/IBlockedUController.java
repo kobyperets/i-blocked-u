@@ -2,11 +2,7 @@ package com.salesforce.iblockedu.IBlockedU.controllers;
 
 import com.salesforce.iblockedu.IBlockedU.dal.UsersDal;
 import com.salesforce.iblockedu.IBlockedU.model.User;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -24,9 +19,6 @@ import java.sql.Statement;
 @RestController
 @RequestMapping("/iblockedu/api")
 public class IBlockedUController {
-
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
 
     @Autowired
     private DataSource dataSource;
@@ -122,15 +114,6 @@ public class IBlockedUController {
         return "";
     }
 
-    @Bean
-    public DataSource dataSource() throws SQLException {
-        if (dbUrl == null || dbUrl.isEmpty()) {
-            return new HikariDataSource();
-        } else {
-            HikariConfig config = new HikariConfig();
-            config.setJdbcUrl(dbUrl);
-            return new HikariDataSource(config);
-        }
-    }
+
 }
 
