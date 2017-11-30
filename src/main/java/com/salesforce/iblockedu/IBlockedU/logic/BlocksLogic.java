@@ -10,6 +10,7 @@ import com.salesforce.iblockedu.IBlockedU.model.User;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by doron.levi on 29/11/2017.
@@ -72,6 +73,10 @@ public class BlocksLogic {
         }
 
         return error;
+    }
+
+    public List<Block> getAllBlocks(boolean active) {
+        return blocksDal.getAllBlocks(active);
     }
 
     public String getMyBlocker(String email) {

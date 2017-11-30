@@ -76,11 +76,11 @@ public class BlocksDal extends BaseDal<Block> {
         return block;
     }
 
-    public List<Block> getAllActiveBlocks() {
+    public List<Block> getAllBlocks(boolean active) {
         List<Block> blocks = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM BLOCKS WHERE IS_ACTIVE = TRUE");
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM BLOCKS WHERE IS_ACTIVE = %s", active));
             Block block;
             while (rs.next()) {
                 block = getBlockFromRecord(rs);
