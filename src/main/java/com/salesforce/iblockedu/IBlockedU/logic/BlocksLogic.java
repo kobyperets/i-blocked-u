@@ -34,7 +34,7 @@ public class BlocksLogic {
             long timeInMillis = Calendar.getInstance().getTime().getTime();
             blocksDal.updateExitHour(user,new Date(timeInMillis));
             Block block = blocksDal.removeBlock(user);
-            if (block != null){
+            if (block.isActive()){
                 User blockedUser = usersDal.getUserById(block.getBlockedId());
                 MessageSender.sendMessage("You are free. Nobody blocks you",blockedUser.getPhoneNumber());
                 message = String.format("Your block has been removed, %s will be notified", blockedUser.getName());
