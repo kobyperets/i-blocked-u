@@ -209,19 +209,25 @@ app.controller('BlocksCtrl', function($scope, $http, $interval) {
 });
 
 app.controller('postuserCtrl', function ($scope, $http) {
+    $scope.id = null;
     $scope.email = null;
     $scope.name = null;
     $scope.phone = null;
     $scope.imageLocation = null;
-    $scope.lblMsg = null;
-    $scope.postdata = function (name, phone, cpn) {
+    $scope.active = null;
+
+    $scope.postdata = function (id, email, name, phone, imageLocation) {
         var data = {
+        id: id,
+        email: email,
         name: name,
-        phone: phone,
-        cpn: cpn
+        phoneNumber: phone,
+        imageLocation: imageLocation,
+        active: "true"
+
     };
     //Call the services
-    $http.post('/iblockedu/api/user', JSON.stringify(data)).then(function (response) {
+    $http.post('/iblockedu/ui/users/add', JSON.stringify(data)).then(function (response) {
     if (response.data)
         $scope.msg = "Post Data Submitted Successfully!";
     }, function (response) {
