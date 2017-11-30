@@ -5,6 +5,7 @@ import com.salesforce.iblockedu.IBlockedU.dal.CarsDal;
 import com.salesforce.iblockedu.IBlockedU.dal.UsersDal;
 import com.salesforce.iblockedu.IBlockedU.dal.UtilsDal;
 import com.salesforce.iblockedu.IBlockedU.logic.BlocksLogic;
+import com.salesforce.iblockedu.IBlockedU.logic.CarsLogic;
 import com.salesforce.iblockedu.IBlockedU.logic.UsersLogic;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -67,6 +68,8 @@ public class IBlockedUConfiguration {
         return new BlocksLogic(usersDal,blocksDal, carsDal);
     }
 
-
-
+    @Bean
+    public CarsLogic carsLogic(CarsDal carsDal) {
+        return new CarsLogic(carsDal);
+    }
 }

@@ -2,6 +2,7 @@ package com.salesforce.iblockedu.IBlockedU.dal;
 
 import com.salesforce.iblockedu.IBlockedU.exceptions.IBlockedUException;
 import com.salesforce.iblockedu.IBlockedU.model.Car;
+import com.salesforce.iblockedu.IBlockedU.model.CarOwnerInfo;
 import com.salesforce.iblockedu.IBlockedU.model.User;
 
 import javax.sql.DataSource;
@@ -46,14 +47,41 @@ public class CarsDal extends BaseDal<Car> {
 
     }
 
+    public List<CarOwnerInfo> getAllCarsOwnersInfo() {
+
+        List<CarOwnerInfo> carInfos = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name,license_plate from users,cars where cars.owner_id = users.id and users.active = true");
+
+            CarOwnerInfo carInfo;
+
+            while (rs.next()) {
+                carInfo = getCarOwnerInfoFromRecord(rs);
+                carInfos.add(carInfo);
+            }
+
+        } catch (Exception e) {
+            ///log
+            throw new IBlockedUException(e);
+        }
+
+        return carInfos;
+
+    }
+
+
     public User getUserByCarId(Car car) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT OWNER_ID FROM CARS WHERE ID = %d", car.getId()));
             int ownerId = -1;
-            while (rs.next()) {
+
+            if (rs.next()) {
                 ownerId = rs.getInt("OWNER_ID");
             }
+
             ResultSet resultSet = stmt.executeQuery(String.format("SELECT * FROM USERS WHERE ID = %d", ownerId));
 
             if (resultSet.next())
@@ -81,7 +109,7 @@ public class CarsDal extends BaseDal<Car> {
 
         } catch (Exception e) {
             ///log
-            throw new IBlockedUException();
+            throw new IBlockedUException(e);
         }
 
         return cars;
@@ -98,5 +126,11 @@ public class CarsDal extends BaseDal<Car> {
 
         return car;
     }
+
+    private static CarOwnerInfo getCarOwnerInfoFromRecord(ResultSet rs)  throws SQLException {
+
+        return new CarOwnerInfo(rs.getString("name"),rs.getString("LICENSE_PLATE"));
+    }
+
 
 }

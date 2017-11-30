@@ -49,7 +49,7 @@ public class BlocksLogic {
 
     public String block(String email, String licensePlate, Date exitTime) {
 
-        String error = "";
+        String message = "";
 
         User user = usersDal.getUserByEmail(email);
 
@@ -70,13 +70,15 @@ public class BlocksLogic {
                 blocksDal.addBlock(block);
                 User blockedUser = usersDal.getUserById(block.getBlockedId());
                 MessageSender.sendMessage(String.format("You have been blocked by: %s", email),blockedUser.getPhoneNumber());
+
+                message = String.format("%s was notified about his blocking", blockedUser.getName());
             } else
-                error = ErrorsBuilder.buildError("No Car found for license plate" ,licensePlate);
+                message = ErrorsBuilder.buildError("No Car found for license plate" ,licensePlate);
         } else {
-            error = ErrorsBuilder.buildError("No user found for",email);
+            message = ErrorsBuilder.buildError("No user found for",email);
         }
 
-        return error;
+        return message;
     }
 
     public List<Block> getAllBlocks(boolean active) {

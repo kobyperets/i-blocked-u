@@ -68,7 +68,7 @@ public class UtilsDal {
             stmt.executeUpdate("INSERT INTO CARS (COLOR, MODEL, OWNER_ID, LICENSE_PLATE) VALUES ('black', 'Bentley Continental Coupe', 9, '4315962')");
             stmt.executeUpdate("INSERT INTO CARS (COLOR, MODEL, OWNER_ID, LICENSE_PLATE) VALUES ('black', 'Cadillac ATS Coupe', 10, '6843173')");
             stmt.executeUpdate("INSERT INTO CARS (COLOR, MODEL, OWNER_ID, LICENSE_PLATE) VALUES ('white', 'Cadillac ATS Coupe', 11, '7359355')");
-            stmt.executeUpdate("INSERT INTO CARS (COLOR, MODEL, OWNER_ID, LICENSE_PLATE) VALUES ('blue', 'Chevrolet Avalanche', 12, '2626968')");
+            stmt.executeUpdate("INSERT INTO CARS (COLOR, MODEL, OWNER_ID, LICENSE_PLATE) VALUES ('blue', 'Chevrolet Avalanche', 12, '1797538')");
             stmt.executeUpdate("INSERT INTO CARS (COLOR, MODEL, OWNER_ID, LICENSE_PLATE) VALUES ('blue', 'Chevrolet Colorado', 13, '5108966')");
         } catch (Exception e) {
             return "error " + e.getMessage();

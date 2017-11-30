@@ -2,7 +2,9 @@ package com.salesforce.iblockedu.IBlockedU.controllers;
 
 import com.salesforce.iblockedu.IBlockedU.dal.UtilsDal;
 import com.salesforce.iblockedu.IBlockedU.logic.BlocksLogic;
+import com.salesforce.iblockedu.IBlockedU.logic.CarsLogic;
 import com.salesforce.iblockedu.IBlockedU.logic.UsersLogic;
+import com.salesforce.iblockedu.IBlockedU.model.CarOwnerInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.util.List;
 
 /**
  * Created by doron.levi on 27/11/2017.
@@ -29,6 +32,9 @@ public class IBlockedUController {
 
     @Autowired
     private BlocksLogic blocksLogic;
+
+    @Autowired
+    private CarsLogic carsLogic;
 
     @RequestMapping(value = "/iAmBlocking", method = RequestMethod.GET)
     public String iAmBlocking(@RequestParam String email, @RequestParam String licensePlate) {
@@ -56,6 +62,12 @@ public class IBlockedUController {
             return "Guest";
         else
             return userName;
+    }
+
+    @RequestMapping(value = "/carownersinfo", method = RequestMethod.GET)
+    public List<CarOwnerInfo> carOwners() {
+
+        return carsLogic.getAllCarsOwnersInfo();
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
