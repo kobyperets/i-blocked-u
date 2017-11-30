@@ -37,7 +37,7 @@ public class BlocksLogic {
             if (block.isActive()){
                 User blockedUser = usersDal.getUserById(block.getBlockedId());
                 MessageSender.sendMessage("You are free. Nobody blocks you",blockedUser.getPhoneNumber());
-                message = String.format("Your block has been removed, %s will be notified", blockedUser.getName());
+                message = String.format("Your block has been removed,%s will be notified", blockedUser.getName());
             } else {
                 message = "Note: no active blocking found";
             }
