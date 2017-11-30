@@ -84,15 +84,24 @@ public class BlocksLogic {
     }
 
     public String getMyBlocker(String email) {
-        String blocker_email = "";
-        User user = usersDal.getUserByEmail(email);
-        if (user.isActive()) {
-            Block block = blocksDal.getMyBlocker(user);
-            blocker_email = usersDal.getUserById(block.getBlockerId()).getEmail();
+        String message;
+
+        User blocked = usersDal.getUserByEmail(email);
+        if (blocked.isActive()) {
+
+            Block block = blocksDal.getMyBlocker(blocked);
+
+            User blocker = usersDal.getUserById(block.getBlockerId());
+
+            if (blocker.isActive())
+                message = "You're currently blocked by " + blocker.getName();
+            else
+                message = "Blocker not found";
+
         } else {
-            blocker_email = ErrorsBuilder.buildError("No active user found for", email);
+            message = ErrorsBuilder.buildError("No active user found for", email);
         }
 
-        return blocker_email;
+        return message;
     }
 }

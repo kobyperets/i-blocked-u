@@ -101,10 +101,8 @@ public class UsersDal extends BaseDal<User> {
 
     public static User getUserFromRecord(ResultSet rs) throws SQLException {
         User user;
-        user = new User();
-        user.setId(rs.getInt("ID"));
+        user = new User(rs.getInt("ID"),rs.getString("EMAIL"));
         user.setActive(rs.getBoolean("ACTIVE"));
-        user.setEmail(rs.getString("EMAIL"));
         user.setName(rs.getString("NAME"));
         user.setPhoneNumber(rs.getString("PHONE_NUMBER"));
         return user;

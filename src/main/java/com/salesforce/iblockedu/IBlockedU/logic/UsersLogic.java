@@ -25,4 +25,8 @@ public class UsersLogic {
 
         return user.getName();
     }
+
+    public void addUser(User user) {
+        usersDal.createUser(user);
+    }
 }

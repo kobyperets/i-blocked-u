@@ -7,9 +7,8 @@ import com.salesforce.iblockedu.IBlockedU.model.Block;
 import com.salesforce.iblockedu.IBlockedU.model.Car;
 import com.salesforce.iblockedu.IBlockedU.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,6 +45,13 @@ public class IBlockedUAdminController {
   public List<Block> blocks() {
 
     return blocksLogic.getAllBlocks(true);
+  }
+
+  @RequestMapping(value = "/users/add", method = RequestMethod.PUT)
+  @ResponseStatus(HttpStatus.OK)
+  public void addUser(@RequestBody User user) {
+
+    usersLogic.addUser(user);
   }
 
 }

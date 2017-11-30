@@ -20,7 +20,9 @@ public class User extends BaseEntity{
         this.active = active;
     }
 
-    public User() {
+    public User(int id, String email) {
+        this.id = id;
+        this.email = email;
     }
 
     public int getId() {
@@ -73,5 +75,41 @@ public class User extends BaseEntity{
 
     public static User getEmpty() {
         return empty;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if  (id == user.id) {
+            if (email == user.email)
+                return true;
+            else {
+                if (email == null)
+                    return false;
+
+                if (user.email == null)
+                    return false;
+
+                if (email.toLowerCase().equals(user.email.toLowerCase()))
+                    return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = email != null ? email.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+        result = 31 * result + (imageLocation != null ? imageLocation.hashCode() : 0);
+        result = 31 * result + (active ? 1 : 0);
+        return result;
     }
 }
