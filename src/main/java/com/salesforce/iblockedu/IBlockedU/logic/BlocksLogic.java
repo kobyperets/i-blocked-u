@@ -102,7 +102,7 @@ public class BlocksLogic {
                 else
                     message = "Blocker not found";
             } else {
-                message = "No registered blocking, you are free to go";
+                message = "No registered blocking, You are free to go";
             }
 
         } else {
