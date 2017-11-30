@@ -21,7 +21,7 @@ public class CarsDal extends BaseDal<Car> {
     public void createCar(Car car) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            stmt.executeUpdate(String.format("INSERT INTO CARS (COLOR, MODEL, OWNER_ID, LICENSE_PLATE) VALUES (%s, %s, %d, %s)",
+            stmt.executeUpdate(String.format("INSERT INTO CARS (COLOR, MODEL, OWNER_ID, LICENSE_PLATE) VALUES (\'%s\', \'%s\', \'%d\', \'%s\')",
                     car.getColor(), car.getModel(), car.getOwnerId(), car.getLicensePlate()));
 
         } catch (Exception e) {
