@@ -31,7 +31,11 @@ public class BlocksLogic {
         if (user.isActive()) {
             long timeInMillis = Calendar.getInstance().getTime().getTime();
             blocksDal.updateExitHour(user,new Date(timeInMillis));
-            blocksDal.removeBlock(user);
+            Block block = blocksDal.removeBlock(user);
+            if (block != null){
+                User blockedUser = usersDal.getUserById(block.getBlockedId());
+                MessageSender.sendMessage("You are free. Nobody blocks you",blockedUser.getPhoneNumber());
+            }
         } else {
             error = String.format("Error: No active user found for: %s", email);
         }
@@ -59,6 +63,8 @@ public class BlocksLogic {
                 block.setBlockedId(car.getOwnerId());
 
                 blocksDal.addBlock(block);
+                User blockedUser = usersDal.getUserById(block.getBlockedId());
+                MessageSender.sendMessage(String.format("You have been blocked by: %s", email),blockedUser.getPhoneNumber());
             } else
                 error = "Error: No Car found for license plate: " + licensePlate;
         } else {

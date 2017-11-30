@@ -25,17 +25,18 @@ public class BlocksDal extends BaseDal<Block> {
         }
     }
 
-    public void removeBlock(User user) {
+    public Block removeBlock(User user) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             Block block = checkIfBlocker(user, stmt);
             if (block != null) {
                 stmt.executeUpdate(String.format("UPDATE BLOCKS SET IS_ACTIVE = FALSE WHERE ID = %d", block.getId()));
-                //Todo- mmatalon: Send sms
+                return block;
             }
         } catch (Exception e) {
             throw new IBlockedUException(e);
         }
+        return null;
     }
 
     public Block getMyBlocker(User user) {
