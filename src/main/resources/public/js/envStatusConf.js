@@ -209,16 +209,15 @@ app.controller('BlocksCtrl', function($scope, $http, $interval) {
 });
 
 app.controller('postuserCtrl', function ($scope, $http) {
-    $scope.id = null;
     $scope.email = null;
     $scope.name = null;
     $scope.phone = null;
     $scope.imageLocation = null;
     $scope.active = null;
 
-    $scope.postdata = function (id, email, name, phone, imageLocation) {
+    $scope.postdata = function (email, name, phone, imageLocation) {
         var data = {
-        id: id,
+        id: "",
         email: email,
         name: name,
         phoneNumber: phone,
@@ -228,6 +227,35 @@ app.controller('postuserCtrl', function ($scope, $http) {
     };
     //Call the services
     $http.post('/iblockedu/ui/users/add', JSON.stringify(data)).then(function (response) {
+    if (response.data)
+        $scope.msg = "Post Data Submitted Successfully!";
+    }, function (response) {
+        $scope.msg = "Service not Exists";
+        $scope.statusval = response.status;
+        $scope.statustext = response.statusText;
+        $scope.headers = response.headers();
+    });
+    };
+});
+
+app.controller('postcarCtrl', function ($scope, $http) {
+    $scope.color = null;
+    $scope.model = null;
+    $scope.ownerId = null;
+    $scope.licensePlate = null;
+
+
+    $scope.postcardata = function (color, model, ownerId, licensePlate) {
+        var data = {
+        id: "",
+        color: color,
+        model: model,
+        ownerId: ownerId,
+        licensePlate: licensePlate
+
+    };
+    //Call the services
+    $http.post('/iblockedu/ui/cars/add', JSON.stringify(data)).then(function (response) {
     if (response.data)
         $scope.msg = "Post Data Submitted Successfully!";
     }, function (response) {

@@ -1,5 +1,15 @@
 <div class="panel-body">
     <div class="panel-default" style="margin: 20px; width: 400px">
+        <div ng-app="postuser" ng-controller="postuserCtrl">
+            <div>
+                Name : <input ng-model="name" /><br/><br/>
+                Phone : <input ng-model="phone" /><br/><br/>
+                Email : <input ng-model="email" /><br/><br/>
+                Image location : <input ng-model="imageLocation" /><br/><br/>
+
+                <input type="button" value="Send" ng-click="postdata(id, email, name, phone, imageLocation, active)" /> <br/><br/>
+            </div>
+        </div>
         <table st-table="usersTable" class="table table-striped">
             <thead>
             <tr>
@@ -20,17 +30,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <br/><br/><br/><br/><br/><br/><br/>
-    <div ng-app="postcar" ng-controller="postuserCtrl">
-        <div>
-            Id : <input ng-model="id" /><br/><br/>
-            Name : <input ng-model="name" /><br/><br/>
-            Phone : <input ng-model="phone" /><br/><br/>
-            Email : <input ng-model="email" /><br/><br/>
-            Image location : <input ng-model="imageLocation" /><br/><br/>
-
-            <input type="button" value="Send" ng-click="postdata(id, email, name, phone, imageLocation, active)" /> <br/><br/>
-        </div>
     </div>
 </div>

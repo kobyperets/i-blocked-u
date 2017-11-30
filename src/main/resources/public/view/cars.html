@@ -1,6 +1,18 @@
 <div class="panel-body">
     <div class="panel-default" style="margin: 20px; width: 400px">
-        <table st-table="usersTable" class="table table-striped">
+
+        <div ng-app="postcar" ng-controller="postcarCtrl">
+            <div>
+                Color : <input ng-model="color" /><br/><br/>
+                Model : <input ng-model="model" /><br/><br/>
+                Owner Id : <input ng-model="ownerId" /><br/><br/>
+                License plate : <input ng-model="licensePlate" /><br/><br/>
+
+                <input type="button" value="Send" ng-click="postcardata(color, model, ownerId, licensePlate)" /> <br/><br/>
+            </div>
+        </div>
+
+        <table st-table="carTable" class="table table-striped">
             <thead>
             <tr>
                 <th></th>
