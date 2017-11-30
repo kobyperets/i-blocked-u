@@ -66,14 +66,7 @@ public class IBlockedUController {
 
     @RequestMapping(value = "/carownersinfo", method = RequestMethod.GET)
     public List<CarOwnerInfo> carOwners() {
-
         return carsLogic.getAllCarsOwnersInfo();
-    }
-
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users() {
-
-        return "{\"users\":[{\"id\":\"1\", \"name\":\"dor\", \"phone\":\"1234\"}]}";
     }
 
     @RequestMapping("/dbinit")
