@@ -45,7 +45,7 @@ public class UtilsDal {
             stmt.executeUpdate("INSERT INTO USERS (EMAIL, NAME, PHONE_NUMBER, IMAGE_LOCATION, ACTIVE) VALUES ('icohen@salesforce.com', 'Idan Cohen', '9720507867939', '', True)");
             stmt.executeUpdate("INSERT INTO USERS (EMAIL, NAME, PHONE_NUMBER, IMAGE_LOCATION, ACTIVE) VALUES ('yzecharya@salesforce.com', 'Yaniv Zecharya', '9720524824984', '', True)");
             stmt.executeUpdate("INSERT INTO USERS (EMAIL, NAME, PHONE_NUMBER, IMAGE_LOCATION, ACTIVE) VALUES ('dkolog@salesforce.com', 'Dor Kolog', '9720548141148', '', True)");
-            stmt.executeUpdate("INSERT INTO USERS (EMAIL, NAME, PHONE_NUMBER, IMAGE_LOCATION, ACTIVE) VALUES ('kperets@salesforce.com', 'Koby Perets', '9720525852731', '', True)");
+            stmt.executeUpdate("INSERT INTO USERS (EMAIL, NAME, PHONE_NUMBER, IMAGE_LOCATION, ACTIVE) VALUES ('kperets@salesforce.com', 'Yuval Shubert', '9720525852731', '', True)");
             stmt.executeUpdate("INSERT INTO USERS (EMAIL, NAME, PHONE_NUMBER, IMAGE_LOCATION, ACTIVE) VALUES ('doron.levi@salesforce.com', 'Doron Levi', '9720544663319', '', True)");
             stmt.executeUpdate("INSERT INTO USERS (EMAIL, NAME, PHONE_NUMBER, IMAGE_LOCATION, ACTIVE) VALUES ('aelimelech@salesforce.com', 'Adam Elimelech', '9720547499905', '', True)");
             stmt.executeUpdate("INSERT INTO USERS (EMAIL, NAME, PHONE_NUMBER, IMAGE_LOCATION, ACTIVE) VALUES ('peisendorf@salesforce.com', 'Pavel Eisendorf', '9720532830655', '', True)");
