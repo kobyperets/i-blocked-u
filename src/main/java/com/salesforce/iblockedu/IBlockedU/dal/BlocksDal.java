@@ -29,18 +29,19 @@ public class BlocksDal extends BaseDal<Block> {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             Block block = checkIfBlocker(user, stmt);
-            if (block != null) {
+            if (block.isActive()) {
                 stmt.executeUpdate(String.format("UPDATE BLOCKS SET IS_ACTIVE = FALSE WHERE ID = %d", block.getId()));
                 return block;
             }
         } catch (Exception e) {
             throw new IBlockedUException(e);
         }
-        return null;
+        return Block.getEmpty();
     }
 
     public Block getMyBlocker(User user) {
-        Block block = null;
+        Block block = Block.getEmpty();
+
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM BLOCKS WHERE BLOCKED_ID = %d", user.getId()));
@@ -57,7 +58,7 @@ public class BlocksDal extends BaseDal<Block> {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             Block block = checkIfBlocker(user, stmt);
-            if (block != null) {
+            if (block.isActive()) {
                 stmt.executeUpdate(String.format("UPDATE BLOCKS SET BLOCKER_EXIT = '%s' WHERE ID = %d", date, block.getId()));
             }
 
@@ -69,7 +70,7 @@ public class BlocksDal extends BaseDal<Block> {
 
     private Block checkIfBlocker(User user, Statement stmt) throws SQLException {
         ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM BLOCKS WHERE BLOCKER_ID = %d", user.getId()));
-        Block block = null;
+        Block block = Block.getEmpty();
         while (rs.next()) {
             block = getBlockFromRecord(rs);
         }

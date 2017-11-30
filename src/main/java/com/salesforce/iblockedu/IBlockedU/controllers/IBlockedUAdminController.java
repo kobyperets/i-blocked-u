@@ -54,4 +54,13 @@ public class IBlockedUAdminController {
     usersLogic.addUser(user);
   }
 
+
+  @RequestMapping(value = "/cars/add", method = RequestMethod.POST)
+  @ResponseStatus(HttpStatus.OK)
+  public void addCar(@RequestBody Car car) {
+
+
+    carsDal.createCar(car);
+  }
+
 }

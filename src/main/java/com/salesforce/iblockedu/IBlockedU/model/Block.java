@@ -9,6 +9,8 @@ public class Block extends BaseEntity {
     private Date blockingDate;
     private Date blockerExitTime;
     private boolean isActive;
+    private static Block empty = new Block(-1,-1,-1,-1,null,null,false);
+
 
     public Block(int id, int blockerId, int blockedCarId, int blockedId, Date blockingDate, Date blockerExitTime, Boolean isActive) {
         this.id = id;
@@ -79,6 +81,10 @@ public class Block extends BaseEntity {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public static Block getEmpty() {
+        return empty;
     }
 }
 

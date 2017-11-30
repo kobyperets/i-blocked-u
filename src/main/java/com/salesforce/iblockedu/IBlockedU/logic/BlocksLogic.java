@@ -91,12 +91,17 @@ public class BlocksLogic {
 
             Block block = blocksDal.getMyBlocker(blocked);
 
-            User blocker = usersDal.getUserById(block.getBlockerId());
+            if (block.isActive()) {
 
-            if (blocker.isActive())
-                message = "You're currently blocked by " + blocker.getName();
-            else
-                message = "Blocker not found";
+                User blocker = usersDal.getUserById(block.getBlockerId());
+
+                if (blocker.isActive())
+                    message = "You're currently blocked by " + blocker.getName();
+                else
+                    message = "Blocker not found";
+            } else {
+                message = "No registered blocking, you are free to go";
+            }
 
         } else {
             message = ErrorsBuilder.buildError("No active user found for", email);
