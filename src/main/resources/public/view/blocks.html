@@ -6,16 +6,18 @@
                 <th></th>
                 <th>Blocker Id</th>
                 <th>Blocked Id</th>
+                <th>Blocked Car Id</th>
                 <th>Blocking date</th>
                 <th>Blocker exit hour</th>
                 <th>Blocked exit hour</th>
             </tr>
             </thead>
 
-            <tbody ng-repeat="block in blockRecords">
+            <tbody ng-repeat="block in blocksRecords">
                 <tr>
                 <td>{{block.blockerid}}</td>
                 <td>{{block.blockedid}}</td>
+                <td>{{block.blockedcarid}}</td>
                 <td>{{block.blockingdate}}</td>
                 <td>{{block.blockerexithour}}</td>
                 <td>{{block.blockedexithour}}</td>

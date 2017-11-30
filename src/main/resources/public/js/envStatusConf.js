@@ -152,11 +152,11 @@ app.controller('UsersCtrl', function($scope, $http, $interval) {
 
         $http({
             method: 'GET',
-            url: "/iblockedu/api/users",
+            url: "/iblockedu/ui/users",
             headers: {"Content-Type": "application/json"}
         }).then(function (response) {
 
-            $scope.userRecords = response.data.users;
+            $scope.userRecords = response.data;
         });
     }
     $scope.task = $interval($scope.getUsers,5000);
@@ -169,16 +169,17 @@ app.controller('CarsCtrl', function($scope, $http, $interval) {
 
 
     $scope.carsRecords = [];
+    $scope.parseInt = parseInt;
 
     $scope.getCars = function () {
 
         $http({
             method: 'GET',
-            url: "/iblockedu/api/cars",
+            url: "/iblockedu/ui/cars",
             headers: {"Content-Type": "application/json"}
         }).then(function (response) {
 
-            $scope.userRecords = response.data.cars;
+            $scope.carsRecords = response.data;
         });
     }
     $scope.task = $interval($scope.getCars,5000);
@@ -190,27 +191,28 @@ app.controller('BlocksCtrl', function($scope, $http, $interval) {
     console.log('inside BlocksCtrl controller');
 
 
-    $scope.carsRecords = [];
+    $scope.blocksRecords = [];
 
     $scope.getBlocks = function () {
 
         $http({
             method: 'GET',
-            url: "/iblockedu/api/blocks",
+            url: "/iblockedu/ui/blocks",
             headers: {"Content-Type": "application/json"}
         }).then(function (response) {
 
-            $scope.userRecords = response.data.blocks;
+            $scope.blocksRecords = response.data;
         });
     }
     $scope.task = $interval($scope.getBlocks,5000);
 
 });
 
-app.controller('postcarCtrl', function ($scope, $http) {
+app.controller('postuserCtrl', function ($scope, $http) {
+    $scope.email = null;
     $scope.name = null;
     $scope.phone = null;
-    $scope.cpn = null;
+    $scope.imageLocation = null;
     $scope.lblMsg = null;
     $scope.postdata = function (name, phone, cpn) {
         var data = {

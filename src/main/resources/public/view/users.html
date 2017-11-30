@@ -7,6 +7,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Phone</th>
+                <th>Email</th>
             </tr>
             </thead>
 
@@ -14,14 +15,15 @@
                 <tr>
                 <td>{{user.id}}</td>
                 <td>{{user.name}}</td>
-                <td>{{user.phone}}</td>
+                <td>{{user.phoneNumber}}</td>
+                <td>{{user.email}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     <br/><br/><br/><br/><br/><br/><br/>
 
-    <div ng-app="postcar" ng-controller="postcarCtrl">
+    <div ng-app="postcar" ng-controller="postuserCtrl">
         <div>
             Name : <input ng-model="name" /><br/><br/>
             Phone : <input ng-model="phone" /><br/><br/>
