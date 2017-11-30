@@ -5,9 +5,7 @@
                 Name : <input ng-model="name" /><br/><br/>
                 Phone : <input ng-model="phone" /><br/><br/>
                 Email : <input ng-model="email" /><br/><br/>
-                Image location : <input ng-model="imageLocation" /><br/><br/>
-
-                <input type="button" value="Send" ng-click="postdata(id, email, name, phone, imageLocation, active)" /> <br/><br/>
+                <input type="button" value="Send" ng-click="postdata(email, name, phone)" /> <br/><br/>
             </div>
         </div>
         <table st-table="usersTable" class="table table-striped">

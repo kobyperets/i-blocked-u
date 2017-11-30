@@ -212,16 +212,15 @@ app.controller('postuserCtrl', function ($scope, $http) {
     $scope.email = null;
     $scope.name = null;
     $scope.phone = null;
-    $scope.imageLocation = null;
     $scope.active = null;
 
-    $scope.postdata = function (email, name, phone, imageLocation) {
+    $scope.postdata = function (email, name, phone) {
         var data = {
         id: "",
         email: email,
         name: name,
         phoneNumber: phone,
-        imageLocation: imageLocation,
+        imageLocation: "",
         active: "true"
 
     };
@@ -242,7 +241,6 @@ app.controller('postcarCtrl', function ($scope, $http) {
     $scope.color = null;
     $scope.model = null;
     $scope.ownerId = null;
-    $scope.licensePlate = null;
 
 
     $scope.postcardata = function (color, model, ownerId, licensePlate) {
