@@ -12,7 +12,7 @@ public class MessageSender {
     public static void sendMessage(String message, String phoneNumber) {
         try {
             URL url = new URL("http://www.txtlocal.com/sendsmspost.php");
-             String query = String.format("uname=morin.matalon@gmail.com&pword=Morin220986&message=%s&from=IBlockU&selectednums=%s&info=1&test=0", message, phoneNumber);
+             String query = String.format("uname=griglerk@gmail.com&pword=A123456789a&message=%s&from=IBlockU&selectednums=%s&info=1&test=0", message, phoneNumber);
 
             //make connection
             URLConnection urlc = url.openConnection();
