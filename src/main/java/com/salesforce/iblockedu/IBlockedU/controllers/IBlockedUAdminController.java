@@ -47,7 +47,7 @@ public class IBlockedUAdminController {
     return blocksLogic.getAllBlocks(true);
   }
 
-  @RequestMapping(value = "/users/add", method = RequestMethod.PUT)
+  @RequestMapping(value = "/users/add", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   public void addUser(@RequestBody User user) {
 
