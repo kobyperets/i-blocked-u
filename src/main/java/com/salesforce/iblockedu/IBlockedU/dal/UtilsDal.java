@@ -30,7 +30,7 @@ public class UtilsDal {
             insert_cars(stmt);
             return "DB Ready";
         } catch (Exception e) {
-            return "error " + e.getMessage();
+            return "error: " + e.getMessage();
         }
     }
 
@@ -50,7 +50,7 @@ public class UtilsDal {
             stmt.executeUpdate("INSERT INTO USERS (EMAIL, NAME, PHONE_NUMBER, IMAGE_LOCATION, ACTIVE) VALUES ('aelimelech@salesforce.com', 'Adam Elimelech', '9720547499905', '', True)");
             stmt.executeUpdate("INSERT INTO USERS (EMAIL, NAME, PHONE_NUMBER, IMAGE_LOCATION, ACTIVE) VALUES ('peisendorf@salesforce.com', 'Pavel Eisendorf', '9720532830655', '', True)");
         } catch (Exception e) {
-            return "error " + e.getMessage();
+            return "error: " + e.getMessage();
         }
         return "";
     }
