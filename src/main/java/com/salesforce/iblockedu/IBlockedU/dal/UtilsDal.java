@@ -1,12 +1,8 @@
 package com.salesforce.iblockedu.IBlockedU.dal;
 
-import com.salesforce.iblockedu.IBlockedU.model.Block;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.Statement;
-import java.util.List;
 
 /**
  * Created by doron.levi on 29/11/2017.
@@ -32,10 +28,6 @@ public class UtilsDal {
                     "BLOCKED_CAR_ID integer not null REFERENCES CARS (ID), BLOCKED_ID integer not null REFERENCES USERS (ID), BLOCKING_DATE Date not null, BLOCKER_EXIT Date not null, IS_ACTIVE boolean)");
             insert_users(stmt);
             insert_cars(stmt);
-            BlocksDal dal = new BlocksDal(dataSource);
-            dal.addBlock(new Block(1, 5, 6, 4, new Date(35000l), new Date(15000l), Boolean.TRUE));
-            List<Block> aa = dal.getAllBlocks();
-            System.out.print(aa);
             return "DB Ready";
         } catch (Exception e) {
             return "error " + e.getMessage();

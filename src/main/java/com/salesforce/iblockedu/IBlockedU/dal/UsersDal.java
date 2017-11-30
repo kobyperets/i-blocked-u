@@ -50,6 +50,23 @@ public class UsersDal extends BaseDal<User> {
         return user;
     }
 
+    public User getUserById(int id) {
+        User user = User.getEmpty();
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format(String.format("SELECT * FROM USERS WHERE ID = %d", id)));
+
+            while (rs.next()) {
+                user = getUserFromRecord(rs);
+            }
+
+        }catch (Exception e) {
+            throw new IBlockedUException(e);
+        }
+
+        return user;
+    }
+
     public List<User> getAllUsers(boolean active) {
 
         List<User> allUsers = new ArrayList<>();

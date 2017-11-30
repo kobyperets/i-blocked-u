@@ -38,6 +38,20 @@ public class BlocksDal extends BaseDal<Block> {
         }
     }
 
+    public Block getMyBlocker(User user) {
+        Block block = null;
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM BLOCKS WHERE BLOCKED_ID = %d", user.getId()));
+            while (rs.next()) {
+                block = getBlockFromRecord(rs);
+            }
+        } catch (Exception e) {
+            throw new IBlockedUException(e);
+        }
+        return block;
+    }
+
     public void updateExitHour(User user, Date date) {
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();

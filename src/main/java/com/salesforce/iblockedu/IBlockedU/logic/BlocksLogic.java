@@ -9,6 +9,7 @@ import com.salesforce.iblockedu.IBlockedU.model.User;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.util.Calendar;
 
 /**
  * Created by doron.levi on 29/11/2017.
@@ -24,10 +25,17 @@ public class BlocksLogic {
         this.carsDal = carsDal;
     }
 
-    public void unBlock(String email) {
+    public String unBlock(String email) {
+        String error = "";
         User user = usersDal.getUserByEmail(email);
-
-        blocksDal.removeBlock(user);
+        if (user.isActive()) {
+            long timeInMillis = Calendar.getInstance().getTime().getTime();
+            blocksDal.updateExitHour(user,new Date(timeInMillis));
+            blocksDal.removeBlock(user);
+        } else {
+            error = String.format("Error: No active user found for: %s", email);
+        }
+        return error;
     }
 
     public String block(String email, String licensePlate, Date exitTime) {
@@ -60,9 +68,16 @@ public class BlocksLogic {
         return error;
     }
 
-    public void updateExitHour(User user, Date date) {
-        blocksDal.updateExitHour(user,date);
+    public String getMyBlocker(String email) {
+        String blocker_email = "";
+        User user = usersDal.getUserByEmail(email);
+        if (user.isActive()) {
+            Block block = blocksDal.getMyBlocker(user);
+            blocker_email = usersDal.getUserById(block.getBlockerId()).getEmail();
+        } else {
+            blocker_email = String.format("Error: No active user found for: %s", email);
+        }
+
+        return blocker_email;
     }
-
-
 }

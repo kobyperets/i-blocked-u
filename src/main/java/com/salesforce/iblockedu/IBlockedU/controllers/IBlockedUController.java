@@ -37,13 +37,13 @@ public class IBlockedUController {
 
     @RequestMapping(value = "/whoBlocks", method = RequestMethod.GET)
     public String whosBlocking(@RequestParam String email) {
-        return "Mock Car is blocking " + email;
+        return blocksLogic.getMyBlocker(email);
     }
 
     @RequestMapping(value = "/goingHome", method = RequestMethod.GET)
     public String goingHome(@RequestParam String email) {
 
-        return email + " Is going home. Mock Car is now unblocked";
+        return blocksLogic.unBlock(email);
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.GET)
