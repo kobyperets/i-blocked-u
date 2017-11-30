@@ -182,6 +182,22 @@ app.controller('CarsCtrl', function($scope, $http, $interval) {
             $scope.carsRecords = response.data;
         });
     }
+
+   $scope.emailRecords = [];
+
+        $scope.getEmails = function () {
+
+            $http({
+                method: 'GET',
+                url: "/iblockedu/ui/emails",
+                headers: {"Content-Type": "application/json"}
+            }).then(function (response) {
+
+                $scope.emailRecords = response.data;
+            });
+        }
+
+    $scope.task_emails = $interval($scope.getEmails,5000);
     $scope.task = $interval($scope.getCars,5000);
 
 });
@@ -240,15 +256,15 @@ app.controller('postuserCtrl', function ($scope, $http) {
 app.controller('postcarCtrl', function ($scope, $http) {
     $scope.color = null;
     $scope.model = null;
-    $scope.ownerId = null;
+    $scope.ownerEmail = null;
 
 
-    $scope.postcardata = function (color, model, ownerId, licensePlate) {
+    $scope.postcardata = function (color, model, ownerEmail, licensePlate) {
         var data = {
         id: "",
         color: color,
         model: model,
-        ownerId: ownerId,
+        ownerEmail: ownerId,
         licensePlate: licensePlate
 
     };

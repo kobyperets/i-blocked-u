@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by doron.levi on 29/11/2017.
@@ -35,7 +36,14 @@ public class IBlockedUAdminController {
     return usersLogic.getAllUsers(true);
   }
 
-  @RequestMapping(value = "/cars", method = RequestMethod.GET)
+    @RequestMapping(value = "/emails", method = RequestMethod.GET)
+    public List<String> emails() {
+
+        return usersLogic.getAllUsers(true).stream().map(User::getEmail).collect(Collectors.toList());
+    }
+
+
+    @RequestMapping(value = "/cars", method = RequestMethod.GET)
   public List<Car> cars() {
 
     return carsDal.getAllCars();

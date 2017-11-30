@@ -5,10 +5,10 @@
             <div>
                 Color : <input ng-model="color" /><br/><br/>
                 Model : <input ng-model="model" /><br/><br/>
-                Owner Id : <input ng-model="ownerId" /><br/><br/>
+                Owner Email : <select ng-model="ownerEmail" ng-options="email for email in emailRecords" ></select><br/><br/>
                 License plate : <input ng-model="licensePlate" /><br/><br/>
 
-                <input type="button" value="Send" ng-click="postcardata(color, model, ownerId, licensePlate)" /> <br/><br/>
+                <input type="button" value="Send" ng-click="postcardata(color, model, ownerEmail, licensePlate)" /> <br/><br/>
             </div>
         </div>
 
@@ -18,7 +18,7 @@
                 <th></th>
                 <th>Color</th>
                 <th>Model</th>
-                <th>OwnerId</th>
+                <th>OwnerEmail</th>
                 <th>License plate number</th>
             </tr>
             </thead>
