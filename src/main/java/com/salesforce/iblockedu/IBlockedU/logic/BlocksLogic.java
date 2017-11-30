@@ -6,6 +6,7 @@ import com.salesforce.iblockedu.IBlockedU.dal.UsersDal;
 import com.salesforce.iblockedu.IBlockedU.model.Block;
 import com.salesforce.iblockedu.IBlockedU.model.Car;
 import com.salesforce.iblockedu.IBlockedU.model.User;
+import com.salesforce.iblockedu.IBlockedU.utils.ErrorsBuilder;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -27,7 +28,7 @@ public class BlocksLogic {
     }
 
     public String unBlock(String email) {
-        String error = "";
+        String message = "";
         User user = usersDal.getUserByEmail(email);
         if (user.isActive()) {
             long timeInMillis = Calendar.getInstance().getTime().getTime();
@@ -36,11 +37,14 @@ public class BlocksLogic {
             if (block != null){
                 User blockedUser = usersDal.getUserById(block.getBlockedId());
                 MessageSender.sendMessage("You are free. Nobody blocks you",blockedUser.getPhoneNumber());
+                message = String.format("Your block has been removed, %s will be notified", blockedUser.getName());
+            } else {
+                message = "Note: no active blocking found";
             }
         } else {
-            error = String.format("Error: No active user found for: %s", email);
+            message = ErrorsBuilder.buildError("No active user found for: ",email);
         }
-        return error;
+        return message;
     }
 
     public String block(String email, String licensePlate, Date exitTime) {
@@ -67,9 +71,9 @@ public class BlocksLogic {
                 User blockedUser = usersDal.getUserById(block.getBlockedId());
                 MessageSender.sendMessage(String.format("You have been blocked by: %s", email),blockedUser.getPhoneNumber());
             } else
-                error = "Error: No Car found for license plate: " + licensePlate;
+                error = ErrorsBuilder.buildError("No Car found for license plate" ,licensePlate);
         } else {
-            error = "Error: No user found for " + email;
+            error = ErrorsBuilder.buildError("No user found for",email);
         }
 
         return error;
@@ -86,7 +90,7 @@ public class BlocksLogic {
             Block block = blocksDal.getMyBlocker(user);
             blocker_email = usersDal.getUserById(block.getBlockerId()).getEmail();
         } else {
-            blocker_email = String.format("Error: No active user found for: %s", email);
+            blocker_email = ErrorsBuilder.buildError("No active user found for", email);
         }
 
         return blocker_email;
