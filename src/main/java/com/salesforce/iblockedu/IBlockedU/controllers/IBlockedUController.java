@@ -4,6 +4,7 @@ import com.salesforce.iblockedu.IBlockedU.dal.UtilsDal;
 import com.salesforce.iblockedu.IBlockedU.logic.BlocksLogic;
 import com.salesforce.iblockedu.IBlockedU.logic.UsersLogic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +52,7 @@ public class IBlockedUController {
 
         String userName = usersLogic.getUserName(email);
 
-        if (userName == null && userName == "")
+        if (StringUtils.isEmpty(email))
             return "Guest";
         else
             return userName;
