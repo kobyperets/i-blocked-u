@@ -6,12 +6,11 @@ import com.salesforce.iblockedu.IBlockedU.logic.CarsLogic;
 import com.salesforce.iblockedu.IBlockedU.logic.UsersLogic;
 import com.salesforce.iblockedu.IBlockedU.model.CarOwnerInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.List;
@@ -72,6 +71,13 @@ public class IBlockedUController {
     @RequestMapping("/dbinit")
     String dbinit() {
         return utilsDal.initDB();
+    }
+
+    @RequestMapping(value = "/loadBulk", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public boolean loadBulk(@RequestBody String dataCSV) throws IOException {
+
+        return true;
     }
 }
 
