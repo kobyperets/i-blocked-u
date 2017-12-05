@@ -4,7 +4,10 @@ import com.salesforce.iblockedu.IBlockedU.dal.UtilsDal;
 import com.salesforce.iblockedu.IBlockedU.logic.BlocksLogic;
 import com.salesforce.iblockedu.IBlockedU.logic.CarsLogic;
 import com.salesforce.iblockedu.IBlockedU.logic.UsersLogic;
+import com.salesforce.iblockedu.IBlockedU.model.Car;
 import com.salesforce.iblockedu.IBlockedU.model.CarOwnerInfo;
+import com.salesforce.iblockedu.IBlockedU.model.User;
+import com.salesforce.iblockedu.IBlockedU.model.UsersCarsInfo;
 import com.salesforce.iblockedu.IBlockedU.utils.CSVDataToUsersCarsInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,12 +79,31 @@ public class IBlockedUController {
 
     @RequestMapping(value = "/loadBulk", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public boolean loadBulk(@RequestBody String dataCSV) throws IOException {
+    public String loadBulk(@RequestBody String dataCSV) throws IOException {
 
         CSVDataToUsersCarsInfo csvDataToUsersCarsInfo = new CSVDataToUsersCarsInfo();
 
-        csvDataToUsersCarsInfo.convertToUsersCars(dataCSV);
-        return true;
+        List<UsersCarsInfo> usersCarsInfo = csvDataToUsersCarsInfo.convertToUsersCars(dataCSV);
+
+        int numCarsAdded = 0;
+        int numUsersAdded = 0;
+
+        for(UsersCarsInfo userCarsInfo: usersCarsInfo) {
+            User user = usersLogic.getUser(userCarsInfo.getEmail());
+
+            if (User.isEmpty(user)) {
+                usersLogic.addUser(new User(userCarsInfo.getEmail(),userCarsInfo.getName(),userCarsInfo.getPhoneNumber(),"",true));
+                user = usersLogic.getUser(userCarsInfo.getEmail());
+                numUsersAdded++;
+            }
+
+            for(String licensePlate :userCarsInfo.getCarNumbers()) {
+                if (carsLogic.addCar(new Car(user.getId(), licensePlate)))
+                    numCarsAdded++;
+            }
+        }
+
+        return String.format("Number of new users: %d number of new cars: %d", numUsersAdded, numCarsAdded);
     }
 }
 

@@ -20,6 +20,15 @@ public class User extends BaseEntity{
         this.active = active;
     }
 
+    public User(String email, String name, String phoneNumber, String imageLocation, boolean active) {
+        this.id = -1;
+        this.email = email;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.imageLocation = imageLocation;
+        this.active = active;
+    }
+
     public User(int id, String email) {
         this.id = id;
         this.email = email;
@@ -114,5 +123,9 @@ public class User extends BaseEntity{
         result = 31 * result + (imageLocation != null ? imageLocation.hashCode() : 0);
         result = 31 * result + (active ? 1 : 0);
         return result;
+    }
+
+    public static boolean isEmpty(User user) {
+        return user == empty || empty.equals(user);
     }
 }

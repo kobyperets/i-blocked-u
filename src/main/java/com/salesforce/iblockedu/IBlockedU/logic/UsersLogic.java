@@ -21,9 +21,13 @@ public class UsersLogic {
     }
 
     public String getUserName(String email) {
+        return getUser(email).getName();
+    }
+
+    public User getUser(String email) {
         User user = usersDal.getUserByEmail(email);
 
-        return user.getName();
+        return user;
     }
 
     public void addUser(User user) {

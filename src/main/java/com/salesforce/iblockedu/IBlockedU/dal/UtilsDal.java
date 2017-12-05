@@ -26,8 +26,6 @@ public class UtilsDal {
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS CARS (ID serial primary key, COLOR text, MODEL text, OWNER_ID integer not null REFERENCES USERS (ID), LICENSE_PLATE text not null UNIQUE)");
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS BLOCKS (ID serial primary key, BLOCKER_ID integer not null REFERENCES USERS (ID), " +
                     "BLOCKED_CAR_ID integer not null REFERENCES CARS (ID), BLOCKED_ID integer not null REFERENCES USERS (ID), BLOCKING_DATE Date not null, BLOCKER_EXIT Date not null, IS_ACTIVE boolean)");
-            insert_users(stmt);
-            insert_cars(stmt);
             return "DB Ready";
         } catch (Exception e) {
             return "error: " + e.getMessage();
