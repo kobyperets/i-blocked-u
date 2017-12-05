@@ -5,6 +5,7 @@ import com.salesforce.iblockedu.IBlockedU.logic.BlocksLogic;
 import com.salesforce.iblockedu.IBlockedU.logic.CarsLogic;
 import com.salesforce.iblockedu.IBlockedU.logic.UsersLogic;
 import com.salesforce.iblockedu.IBlockedU.model.CarOwnerInfo;
+import com.salesforce.iblockedu.IBlockedU.utils.CSVDataToUsersCarsInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -77,6 +78,9 @@ public class IBlockedUController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public boolean loadBulk(@RequestBody String dataCSV) throws IOException {
 
+        CSVDataToUsersCarsInfo csvDataToUsersCarsInfo = new CSVDataToUsersCarsInfo();
+
+        csvDataToUsersCarsInfo.convertToUsersCars(dataCSV);
         return true;
     }
 }
