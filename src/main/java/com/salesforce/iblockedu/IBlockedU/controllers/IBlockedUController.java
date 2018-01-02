@@ -39,6 +39,12 @@ public class IBlockedUController {
     @Autowired
     private CarsLogic carsLogic;
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public List<String> test(@RequestParam int userId) {
+
+        return carsLogic.getMyLicensePlates(userId);
+    }
+
     @RequestMapping(value = "/iAmBlocking", method = RequestMethod.GET)
     public String iAmBlocking(@RequestParam String email, @RequestParam String licensePlate) {
 

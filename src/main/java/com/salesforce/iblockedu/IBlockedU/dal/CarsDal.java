@@ -47,6 +47,26 @@ public class CarsDal extends BaseDal<Car> {
 
     }
 
+    public List<Car> getCarByUserId(int id) {
+        List<Car> cars = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM CARS WHERE OWNER_ID = '%d'", id));
+
+            while (rs.next()) {
+                Car car = getCarFromRecord(rs);
+                cars.add(car);
+            }
+
+            return cars;
+
+        } catch (Exception e) {
+            ///log
+            throw new IBlockedUException(e);
+        }
+    }
+
     public List<CarOwnerInfo> getAllCarsOwnersInfo() {
 
         List<CarOwnerInfo> carInfos = new ArrayList<>();

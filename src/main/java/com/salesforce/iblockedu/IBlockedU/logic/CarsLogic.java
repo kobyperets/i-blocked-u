@@ -6,6 +6,7 @@ import com.salesforce.iblockedu.IBlockedU.model.Car;
 import com.salesforce.iblockedu.IBlockedU.model.CarOwnerInfo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by doron.levi on 30/11/2017.
@@ -32,6 +33,12 @@ public class CarsLogic {
         }
 
         return false;
+    }
+
+    public List<String> getMyLicensePlates(int userId) {
+        List<Car> carsForUserId = carsDal.getCarByUserId(userId);
+
+        return carsForUserId.stream().map(Car::getLicensePlate).collect(Collectors.toList());
     }
 
 }
