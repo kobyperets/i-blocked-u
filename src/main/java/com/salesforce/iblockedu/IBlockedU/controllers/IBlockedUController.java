@@ -40,18 +40,6 @@ public class IBlockedUController {
     @Autowired
     private CarsLogic carsLogic;
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public UserResponse test(@RequestParam String email) {
-        UserResponse response = new UserResponse();
-        User user = usersLogic.getUser(email);
-        if(user.isActive()) {
-            response.setUser(user);
-            List<String> licensePlates = carsLogic.getMyLicensePlates(user.getId());
-            response.setLicensePlates(licensePlates);
-        }
-        return response;
-    }
-
     @RequestMapping(value = "/iAmBlocking", method = RequestMethod.GET)
     public String iAmBlocking(@RequestParam String email, @RequestParam String licensePlate) {
 
@@ -117,6 +105,21 @@ public class IBlockedUController {
         }
 
         return String.format("Number of new users: %d number of new cars: %d", numUsersAdded, numCarsAdded);
+    }
+
+    /***************************************************************************************/
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public UserResponse login(@RequestParam String email) {
+        UserResponse response = new UserResponse();
+        User user = usersLogic.getUser(email);
+        if(user.isActive()) {
+            response.setUser(user);
+            List<String> licensePlates = carsLogic.getMyLicensePlates(user.getId());
+            response.setLicensePlates(licensePlates);
+            response.setValid(true);
+        }
+        return response;
     }
 }
 

@@ -9,6 +9,7 @@ import java.util.List;
  * Created by kperets on 02/01/2018.
  */
 public class UserResponse {
+    private boolean valid;
     private User user;
     private List<String> licensePlates;
 
@@ -35,5 +36,13 @@ public class UserResponse {
 
     public void setLicensePlates(List<String> licensePlates) {
         this.licensePlates = licensePlates;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 }
