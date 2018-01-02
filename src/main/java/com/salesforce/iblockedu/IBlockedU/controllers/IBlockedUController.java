@@ -8,6 +8,7 @@ import com.salesforce.iblockedu.IBlockedU.model.Car;
 import com.salesforce.iblockedu.IBlockedU.model.CarOwnerInfo;
 import com.salesforce.iblockedu.IBlockedU.model.User;
 import com.salesforce.iblockedu.IBlockedU.model.UsersCarsInfo;
+import com.salesforce.iblockedu.IBlockedU.model.response.UserResponse;
 import com.salesforce.iblockedu.IBlockedU.utils.CSVDataToUsersCarsInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,9 +41,15 @@ public class IBlockedUController {
     private CarsLogic carsLogic;
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public List<String> test(@RequestParam int userId) {
-
-        return carsLogic.getMyLicensePlates(userId);
+    public UserResponse test(@RequestParam String email) {
+        UserResponse response = new UserResponse();
+        User user = usersLogic.getUser(email);
+        if(user.isActive()) {
+            response.setUser(user);
+            List<String> licensePlates = carsLogic.getMyLicensePlates(user.getId());
+            response.setLicensePlates(licensePlates);
+        }
+        return response;
     }
 
     @RequestMapping(value = "/iAmBlocking", method = RequestMethod.GET)
