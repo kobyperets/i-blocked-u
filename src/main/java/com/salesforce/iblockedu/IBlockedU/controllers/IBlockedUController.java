@@ -111,8 +111,20 @@ public class IBlockedUController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public UserResponse login(@RequestParam String email) {
-        UserResponse response = new UserResponse();
+
         User user = usersLogic.getUser(email);
+        return createUserResponse(user);
+
+    }
+
+    @RequestMapping(value = "/whoBlocksMe", method = RequestMethod.GET)
+    public UserResponse whosBlockingMe(@RequestParam String email) {
+        User myBlocker = blocksLogic.getBlockerForEmail(email);
+        return createUserResponse(myBlocker);
+    }
+
+    private UserResponse createUserResponse(User user) {
+        UserResponse response = new UserResponse();
         if(user.isActive()) {
             response.setUser(user);
             List<String> licensePlates = carsLogic.getMyLicensePlates(user.getId());

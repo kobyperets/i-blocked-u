@@ -111,4 +111,28 @@ public class BlocksLogic {
 
         return message;
     }
+
+    public User getBlockerForEmail(String email) {
+
+        User blocked = usersDal.getUserByEmail(email);
+        if (blocked.isActive()) {
+
+            Block block = blocksDal.getMyBlocker(blocked);
+
+            if (block.isActive()) {
+
+                User blocker = usersDal.getUserById(block.getBlockerId());
+
+                if (blocker.isActive())
+                    return blocker;
+                else
+                    return User.getEmpty();
+            } else {
+                return User.getEmpty();
+            }
+
+        } else {
+            return User.getEmpty();
+        }
+    }
 }
