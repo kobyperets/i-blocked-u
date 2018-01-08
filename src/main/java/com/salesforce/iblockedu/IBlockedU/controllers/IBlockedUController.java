@@ -54,7 +54,7 @@ public class IBlockedUController {
     @RequestMapping(value = "/goingHome", method = RequestMethod.GET)
     public String goingHome(@RequestParam String email) {
 
-        return blocksLogic.unBlock(email);
+        return blocksLogic.unBlockDetailed(email);
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.GET)
@@ -121,6 +121,12 @@ public class IBlockedUController {
     public UserResponse whosBlockingMe(@RequestParam String email) {
         User myBlocker = blocksLogic.getBlockerForEmail(email);
         return createUserResponse(myBlocker);
+    }
+
+    @RequestMapping(value = "/imGoingHome", method = RequestMethod.GET)
+    public User imGoingHome(@RequestParam String email) {
+
+        return blocksLogic.unBlock(email);
     }
 
     private UserResponse createUserResponse(User user) {

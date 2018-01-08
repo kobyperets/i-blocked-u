@@ -27,7 +27,7 @@ public class BlocksLogic {
         this.carsDal = carsDal;
     }
 
-    public String unBlock(String email) {
+    public String unBlockDetailed(String email) {
         String message = "";
         User user = usersDal.getUserByEmail(email);
         if (user.isActive()) {
@@ -45,6 +45,23 @@ public class BlocksLogic {
             message = ErrorsBuilder.buildError("No active user found for: ",email);
         }
         return message;
+    }
+
+    public User unBlock(String email) {
+
+        User user = usersDal.getUserByEmail(email);
+        if (user.isActive()) {
+            long timeInMillis = Calendar.getInstance().getTime().getTime();
+            blocksDal.updateExitHour(user,new Date(timeInMillis));
+            Block block = blocksDal.removeBlock(user);
+            if (block.isActive()){
+                User blockedUser = usersDal.getUserById(block.getBlockedId());
+                return blockedUser;
+            } else {
+                return User.getEmpty();
+            }
+        }
+        return User.getEmpty();
     }
 
     public String block(String email, String licensePlate, Date exitTime) {
